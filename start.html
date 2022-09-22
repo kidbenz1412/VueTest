@@ -1,0 +1,140 @@
+<style>
+  div[id*="app"]{
+    padding: 10px;
+    border: 1px solid #000;
+    margin: 10px 0px 10px 0px;
+  }
+  .active {
+    color: #f00;
+  }
+</style>
+
+<script type="importmap">
+    {
+      "imports": {
+        "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+      }
+    }
+</script>
+
+<div id="body">
+  <div id="app"></div>
+
+  <div id="app2">
+    <span v-text="msg"></span>
+    <!-- same as --><br/>
+    <span>{{msg}}</span>
+  </div>
+
+  <div id="app3">
+    <span v-html="html"></span>
+  </div>
+
+  <div id="app4">
+    set status if want to show some special text in v-show.js
+    <span v-show="message">Hello I'm invisible.</span>
+  </div>
+
+  <div id="app5">
+    <button @click="awesome = !awesome">Toggle</button>
+    <h1 v-if="awesome">Vue is awesome!</h1>
+    <h1 v-else>Oh no :(</h1>
+
+    <div v-if="Math.random() > 0.5">
+      Now you see me
+    </div>
+    <div v-else>
+      Now you don't
+    </div>
+
+    <button @click="notic">notic</button>
+    <!-- also can call -->
+    <!-- <button @click="notic()">notic</button> -->
+    <!-- <button @click="(event) => notic()">notic</button> -->
+  </div>
+
+  <div id="app6">
+    <div v-for="item in items" :key="item.id">
+      {{ item.message }} : {{ item.price }}
+    </div>
+  </div>
+
+  <div id="app7">
+    <form @keyup.enter="isValidatedForm && onLogin($event)">
+      username: <input type="text" name="username" v-model="form.username" />
+      password: <input type="password" name="password" v-model="form.password"  />
+      <button :disabled="!isValidatedForm" @click="onLogin" >submit</button>
+    </form>
+  </div>
+
+  <div id="app8">
+    <div v-bind:class="navs">EE</div>
+    can change this to black color by change parameter in v-bind for remove class active
+  </div>
+
+</div>
+
+<script type="module">
+    import { createApp } from 'vue'
+    
+    import templateCompoent from './template.js'
+    const app = createApp(templateCompoent)
+    app.mount('#app')
+
+    //----------------------------
+
+    const app2 = createApp({
+        data() {
+          return {
+            msg: `hello vue~`
+          }
+        }
+    });
+
+    app2.mount('#app2')
+
+    //----------------------------
+
+    const app3 = createApp({
+      data() {
+        return {
+          html: '<p>asd</p>'
+        }
+      }
+    })
+
+    app3.mount('#app3');
+
+    //----------------------------
+
+    import vShowComponent from './v-show.js'
+    const app4 = createApp(vShowComponent)
+    app4.mount('#app4')
+
+    //----------------------------
+
+    import vIfComponent from './v-if.js'
+    const app5 = createApp(vIfComponent)
+    app5.mount('#app5')
+
+    //----------------------------
+
+    import vForComponent from './v-for.js'
+    const app6 = createApp(vForComponent)
+    app6.mount('#app6')
+
+    //----------------------------
+
+    import validateComponent from './validate.js'
+    const app7 = createApp(validateComponent)
+    app7.mount('#app7')
+
+    //----------------------------
+
+    import vBindComponent from './v-bind.js'
+    const app8 = createApp(vBindComponent)
+    app8.mount('#app8')
+
+
+</script>
+  
